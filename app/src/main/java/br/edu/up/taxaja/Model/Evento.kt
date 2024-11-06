@@ -18,4 +18,9 @@ data class Evento (
     val isUrgent : Boolean,
     val status : StatusEvento
 ) {
+    constructor(nome: String, data: Date, horario: String, valorPagarUsuario: Float, status: StatusEvento) :
+            this(0, nome, data, horario, "", "", valorPagarUsuario, false, status)
+
+    constructor() : this(0, "", Date(), "", "", "", 0.0f, false, StatusEvento.ATIVO)
+
 }

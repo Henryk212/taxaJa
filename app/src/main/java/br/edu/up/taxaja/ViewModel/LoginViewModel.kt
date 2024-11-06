@@ -1,4 +1,4 @@
-package br.edu.up.taxaja.Model
+package br.edu.up.taxaja.ViewModel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
