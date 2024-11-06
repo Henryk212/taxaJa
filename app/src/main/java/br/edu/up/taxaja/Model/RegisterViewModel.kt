@@ -29,6 +29,9 @@ class RegisterViewModel : ViewModel() {
     private val _neighborhood = mutableStateOf("")
     val neighborhood: State<String> = _neighborhood
 
+    private val _complement = mutableStateOf("")
+    val complement: State<String> = _complement
+
     private val _city = mutableStateOf("")
     val city: State<String> = _city
 
@@ -41,8 +44,8 @@ class RegisterViewModel : ViewModel() {
     private val _password = mutableStateOf("")
     val password: State<String> = _password
 
-    private val _interestGroup = mutableStateOf("")
-    val interestGroup: State<String> = _interestGroup
+    private val _selectedInterestGroups = mutableStateOf(listOf<String>())
+    val selectedInterestGroups = _selectedInterestGroups
 
     private val viaCepService = ViaCepService.create()
 
@@ -57,12 +60,21 @@ class RegisterViewModel : ViewModel() {
     }
     fun onStreetChange(newStreet: String) { _street.value = newStreet }
     fun onNumberChange(newNumber: String) { _number.value = newNumber }
+    fun onComplementChange(newComplement: String) { _complement.value = newComplement }
     fun onNeighborhoodChange(newNeighborhood: String) { _neighborhood.value = newNeighborhood }
     fun onCityChange(newCity: String) { _city.value = newCity }
     fun onStateChange(newState: String) { _state.value = newState }
     fun onUsernameChange(newUsername: String) { _username.value = newUsername }
     fun onPasswordChange(newPassword: String) { _password.value = newPassword }
-    fun onInterestGroupChange(newInterestGroup: String) { _interestGroup.value = newInterestGroup }
+    fun onInterestGroupChange(group: String) {
+        val currentGroups = _selectedInterestGroups.value.toMutableList()
+        if (currentGroups.contains(group)) {
+            currentGroups.remove(group)
+        } else {
+            currentGroups.add(group)
+        }
+        _selectedInterestGroups.value = currentGroups
+    }
 
     private fun fetchAddress(cep: String) {
         viewModelScope.launch {

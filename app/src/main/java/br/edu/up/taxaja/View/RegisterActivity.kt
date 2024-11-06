@@ -47,12 +47,13 @@ class RegisterActivity : ComponentActivity() {
         val cep by viewModel.cep
         val street by viewModel.street
         val number by viewModel.number
+        val complemento by viewModel.complement
         val neighborhood by viewModel.neighborhood
         val city by viewModel.city
         val state by viewModel.state
         val username by viewModel.username
         val password by viewModel.password
-        val interestGroup by viewModel.interestGroup
+        val selectedInterestGroups by viewModel.selectedInterestGroups
 
         val interestGroups = listOf("Garçom", "Bartender", "Caixa", "Limpeza")
 
@@ -120,6 +121,15 @@ class RegisterActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutlinedTextField(
+                    value = complemento,
+                    onValueChange = { viewModel.onComplementChange(it) },
+                    label = { Text("Complemento") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
                     value = neighborhood,
                     onValueChange = { viewModel.onNeighborhoodChange(it) },
                     label = { Text("Bairro") },
@@ -174,7 +184,7 @@ class RegisterActivity : ComponentActivity() {
                             .padding(vertical = 4.dp)
                     ) {
                         RadioButton(
-                            selected = (interestGroup == group),
+                            selected = selectedInterestGroups.contains(group),
                             onClick = { viewModel.onInterestGroupChange(group) }
                         )
                         Text(text = group, modifier = Modifier.padding(start = 8.dp))
