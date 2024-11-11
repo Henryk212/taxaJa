@@ -16,11 +16,12 @@ data class Evento (
     val endereco : String,
     val valorPagarUsuario : Float,
     val isUrgent : Boolean,
-    val status : StatusEvento
+    val status : StatusEvento,
+    val imageResId: Int
 ) {
-    constructor(nome: String, data: Date, horario: String, valorPagarUsuario: Float, status: StatusEvento) :
-            this(0, nome, data, horario, "", "", valorPagarUsuario, false, status)
+    constructor(nome: String, data: Date, horario: String, valorPagarUsuario: Float, status: StatusEvento, imageResId: Int) :
+            this(0, nome, data, horario, "", "", valorPagarUsuario, false, status, imageResId)
 
-    constructor() : this(0, "", Date(), "", "", "", 0.0f, false, StatusEvento.ATIVO)
+    constructor() : this(0, "", Date(), "", "", "", 0.0f, false, StatusEvento.ATIVO, 0)
 
 }
