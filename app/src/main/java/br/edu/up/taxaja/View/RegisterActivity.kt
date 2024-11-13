@@ -194,7 +194,7 @@ class RegisterActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { /* Handle registration */ },
+                    onClick = { viewModel.saveUser() },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Cadastrar")
@@ -211,4 +211,20 @@ class RegisterActivity : ComponentActivity() {
             }
         }
     }
+}
+
+fun showData (fullName: String, email: String, phone: String, cep: String, street: String, number: String, complemento: String, neighborhood: String, city: String, state: String, username: String, password: String, selectedInterestGroups: List<String>) {
+    println("Nome Completo: $fullName")
+    println("Email: $email")
+    println("Telefone: $phone")
+    println("CEP: $cep")
+    println("Rua: $street")
+    println("Número: $number")
+    println("Complemento: $complemento")
+    println("Bairro: $neighborhood")
+    println("Cidade: $city")
+    println("UF: $state")
+    println("Nome de Usuário: $username")
+    println("Senha: $password")
+    println("Grupos de Interesse: $selectedInterestGroups")
 }

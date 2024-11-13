@@ -1,13 +1,25 @@
 package br.edu.up.taxaja.ViewModel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.edu.up.taxaja.network.ViaCepService
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.State
+import androidx.lifecycle.AndroidViewModel
+import androidx.room.Room
+import br.edu.up.taxaja.Model.Usuario
+import data.dao.taxaJaApp
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(application: Application) : AndroidViewModel(application) {
+    private val db = Room.databaseBuilder(
+        application,
+        taxaJaApp::class.java, "taxaJaApp"
+    ).build()
+
+    private val usuarioDao = db.usuarioDao()
+
     private val _fullName = mutableStateOf("")
     val fullName: State<String> = _fullName
 
@@ -89,4 +101,20 @@ class RegisterViewModel : ViewModel() {
             }
         }
     }
+
+    fun saveUser() {
+        val user = Usuario (
+            id = 0,
+            nome = _fullName.value,
+            email = _email.value,
+            telefone = _phone.value,
+            nomeUsuario = _username.value,
+            senha = _password.value,
+            sexo = "M"
+        )
+        viewModelScope.launch {
+            usuarioDao.insert(user)
+        }
+    }
+
 }
