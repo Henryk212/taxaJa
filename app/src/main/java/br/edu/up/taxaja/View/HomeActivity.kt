@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,9 +19,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.edu.up.taxaja.Model.Evento
+import br.edu.up.taxaja.R
 import br.edu.up.taxaja.ViewModel.HomeViewModel
 import br.edu.up.taxaja.ui.theme.TaxaJaTheme
 
@@ -66,6 +73,42 @@ class HomeActivity : ComponentActivity() {
     }
 
     @Composable
+    fun Footer() {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Blue)
+                .padding(vertical = 16.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = "Home",
+                    tint = Color.White,
+                    modifier = Modifier.clickable { /* Navigate to Home */ }
+                )
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Profile",
+                    tint = Color.White,
+                    modifier = Modifier.clickable { /* Navigate to Profile */ }
+                )
+                Icon(
+                    imageVector = Icons.Default.DateRange,
+                    contentDescription = "Subscriptions",
+                    tint = Color.White,
+                    modifier = Modifier.clickable { /* Navigate to Subscriptions */ }
+                )
+            }
+        }
+    }
+
+    @Composable
     fun HomeScreen(viewModel: HomeViewModel) {
         val eventos by viewModel.eventos
 
@@ -77,7 +120,7 @@ class HomeActivity : ComponentActivity() {
 
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .weight(1f)
                     .padding(16.dp)
             ) {
                 Text(text = "Bem-vindo, [Nome do Usuário]!", fontSize = 24.sp, modifier = Modifier.padding(bottom = 16.dp))
@@ -89,6 +132,8 @@ class HomeActivity : ComponentActivity() {
                     }
                 }
             }
+
+            Footer() // Add the footer here
         }
     }
 
