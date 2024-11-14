@@ -1,24 +1,20 @@
 package br.edu.up.taxaja.ViewModel
 
 import android.app.Application
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.edu.up.taxaja.network.ViaCepService
-import kotlinx.coroutines.launch
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
-import androidx.lifecycle.AndroidViewModel
-import androidx.room.Room
 import br.edu.up.taxaja.Model.Usuario
+import br.edu.up.taxaja.network.ViaCepService
 import data.dao.taxaJaApp
+import kotlinx.coroutines.launch
 
-class RegisterViewModel(application: Application) : AndroidViewModel(application) {
-    private val db = Room.databaseBuilder(
-        application,
-        taxaJaApp::class.java, "taxaJaApp"
-    ).build()
+class RegisterViewModel() : ViewModel() {
 
-    private val usuarioDao = db.usuarioDao()
+    private val userDao = taxaJaApp.getDatabase(Application()).usuarioDao()
+    private val enderecoDao = taxaJaApp.getDatabase(Application()).enderecoDao()
 
     private val _fullName = mutableStateOf("")
     val fullName: State<String> = _fullName
@@ -57,7 +53,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     val password: State<String> = _password
 
     private val _selectedInterestGroups = mutableStateOf(listOf<String>())
-    val selectedInterestGroups = _selectedInterestGroups
+    val selectedInterestGroups: State<List<String>> = _selectedInterestGroups
 
     private val viaCepService = ViaCepService.create()
 
@@ -102,19 +98,34 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun saveUser() {
-        val user = Usuario (
+    suspend fun saveUser() {
+        val user = Usuario(
             id = 0,
             nome = _fullName.value,
             email = _email.value,
             telefone = _phone.value,
             nomeUsuario = _username.value,
             senha = _password.value,
-            sexo = "M"
+            sexo = "M" // ou outro valor conforme necessário
+
         )
-        viewModelScope.launch {
-            usuarioDao.insert(user)
-        }
+
+        userDao.insert(user)
+        saveAddress()
     }
 
+    suspend fun saveAddress() {
+        val address = br.edu.up.taxaja.Model.Endereco(
+            id = 0,
+            cep = _cep.value,
+            rua = _street.value,
+            numero = _number.value,
+            complemento = _complement.value,
+            bairro = _neighborhood.value,
+            cidade = _city.value,
+            uf = _state.value,
+            userId = 0 // ou outro valor conforme necessário
+        )
+        enderecoDao.insert(address)
+    }
 }

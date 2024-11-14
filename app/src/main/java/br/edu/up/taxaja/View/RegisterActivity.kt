@@ -24,11 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import br.edu.up.taxaja.Model.Usuario
 import br.edu.up.taxaja.ViewModel.RegisterViewModel
 import br.edu.up.taxaja.ui.theme.TaxaJaTheme
+import kotlinx.coroutines.launch
 
 class RegisterActivity : ComponentActivity() {
-    private val registerViewModel: RegisterViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels {
+        ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -194,7 +200,11 @@ class RegisterActivity : ComponentActivity() {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { viewModel.saveUser() },
+                    onClick = {
+                        lifecycleScope.launch {
+                            viewModel.saveUser()
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Cadastrar")
@@ -213,18 +223,3 @@ class RegisterActivity : ComponentActivity() {
     }
 }
 
-fun showData (fullName: String, email: String, phone: String, cep: String, street: String, number: String, complemento: String, neighborhood: String, city: String, state: String, username: String, password: String, selectedInterestGroups: List<String>) {
-    println("Nome Completo: $fullName")
-    println("Email: $email")
-    println("Telefone: $phone")
-    println("CEP: $cep")
-    println("Rua: $street")
-    println("Número: $number")
-    println("Complemento: $complemento")
-    println("Bairro: $neighborhood")
-    println("Cidade: $city")
-    println("UF: $state")
-    println("Nome de Usuário: $username")
-    println("Senha: $password")
-    println("Grupos de Interesse: $selectedInterestGroups")
-}

@@ -19,6 +19,7 @@ data class Usuario (
     val senha : String,
 
     val sexo : String
+
 ) {
 
 }
