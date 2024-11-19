@@ -1,6 +1,7 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -50,7 +51,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -71,14 +71,13 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.room:room-ktx:2.6.1")
-    implementation ("androidx.room:room-runtime:2.4.2")
+    implementation("androidx.room:room-runtime:2.4.2")
+    kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")
-    implementation ("androidx.compose.ui:ui:1.0.5")
-    implementation ("androidx.compose.material3:material3:1.0.0-alpha01")
-    implementation ("androidx.compose.ui:ui-tooling-preview:1.0.5")
-    implementation ("androidx.activity:activity-compose:1.3.1")
-    implementation ("io.coil-kt:coil-compose:2.1.0")
-
-
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.compose.ui:ui:1.0.5")
+    implementation("androidx.compose.material3:material3:1.0.0-alpha01")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.0.5")
+    implementation("androidx.activity:activity-compose:1.3.1")
+    implementation("io.coil-kt:coil-compose:2.1.0")
 }

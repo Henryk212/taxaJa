@@ -11,10 +11,10 @@ import br.edu.up.taxaja.network.ViaCepService
 import data.dao.taxaJaApp
 import kotlinx.coroutines.launch
 
-class RegisterViewModel() : ViewModel() {
+class RegisterViewModel(taxaJaApp: taxaJaApp) : ViewModel() {
 
-    private val userDao = taxaJaApp.getDatabase(Application()).usuarioDao()
-    private val enderecoDao = taxaJaApp.getDatabase(Application()).enderecoDao()
+    private val userDao = taxaJaApp.usuarioDao()
+    private val enderecoDao = taxaJaApp.enderecoDao()
 
     private val _fullName = mutableStateOf("")
     val fullName: State<String> = _fullName

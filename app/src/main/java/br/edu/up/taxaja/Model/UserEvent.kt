@@ -16,6 +16,7 @@ data class UserEvent (
     @PrimaryKey(autoGenerate = true)
     val id : Int= 0,
     val idUsuario : Int,
-    val idGrupo : Int
+    val idGrupo : Int,
+    val idEvento : Int
 ){
 }

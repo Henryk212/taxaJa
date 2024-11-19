@@ -6,26 +6,25 @@ import androidx.compose.runtime.State
 import br.edu.up.taxaja.Model.Evento
 import br.edu.up.taxaja.R
 import data.dao.StatusEvento
-import java.util.Date
 
 class HomeViewModel : ViewModel() {
-    private val _eventos = mutableStateOf(listOf(
+    private val _eventos = mutableStateOf<List<Evento>>(listOf(
         Evento(
             id = 1,
             nome = "Rock Concert",
-            data = Date(),
+            data = "10/09/1193",
             horario = "20:00",
             descricao = "A great rock concert.",
             endereco = "Rock Arena",
             valorPagarUsuario = 100.0f,
             isUrgent = false,
             status = StatusEvento.ATIVO,
-            imageResId = R.drawable.imagem1 // ID do recurso drawable
+            imageResId = R.drawable.imagem1
         ),
         Evento(
             id = 2,
             nome = "Jazz Night",
-            data = Date(),
+            data = "10/09/1193",
             horario = "19:00",
             descricao = "Smooth jazz night.",
             endereco = "Jazz Club",
@@ -37,7 +36,7 @@ class HomeViewModel : ViewModel() {
         Evento(
             id = 3,
             nome = "Pop Festival",
-            data = Date(),
+            data = "10/09/1193",
             horario = "18:00",
             descricao = "A fun pop music festival.",
             endereco = "Festival Grounds",

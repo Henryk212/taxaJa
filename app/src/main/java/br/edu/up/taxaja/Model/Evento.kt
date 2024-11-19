@@ -10,7 +10,7 @@ data class Evento (
     @PrimaryKey(autoGenerate = true)
     val id : Int,
     val nome : String,
-    val data : Date,
+    val data : String,
     val horario : String,
     val descricao : String,
     val endereco : String,
@@ -19,9 +19,9 @@ data class Evento (
     val status : StatusEvento,
     val imageResId: Int
 ) {
-    constructor(nome: String, data: Date, horario: String, valorPagarUsuario: Float, status: StatusEvento, imageResId: Int) :
+    constructor(nome: String, data: String, horario: String, valorPagarUsuario: Float, status: StatusEvento, imageResId: Int) :
             this(0, nome, data, horario, "", "", valorPagarUsuario, false, status, imageResId)
 
-    constructor() : this(0, "", Date(), "", "", "", 0.0f, false, StatusEvento.ATIVO, 0)
+    constructor() : this(0, "", "10/09/2024", "", "", "", 0.0f, false, StatusEvento.ATIVO, 0)
 
 }

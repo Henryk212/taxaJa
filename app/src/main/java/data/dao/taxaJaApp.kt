@@ -24,17 +24,17 @@ abstract class taxaJaApp : RoomDatabase (){
     abstract fun eventoDao(): EventoDao
     abstract fun userEventDao(): UserEventDao
 
-    companion object {
-        @Volatile
-        private var instance : taxaJaApp? = null
-        fun getDatabase(context: Context): taxaJaApp {
-            return instance ?: synchronized(this) {
-                instance ?: Room
-                    .databaseBuilder(context.applicationContext, taxaJaApp::class.java, "taxa_ja_database")
-                    .fallbackToDestructiveMigration()
-                    .build()
-                    .also { instance = it }
-            }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance : taxaJaApp? = null
+//        fun getDatabase(context: Context): taxaJaApp {
+//            return instance ?: synchronized(this) {
+//                instance ?: Room
+//                    .databaseBuilder(context.applicationContext, taxaJaApp::class.java, "taxa_ja_database")
+//                    .fallbackToDestructiveMigration()
+//                    .build()
+//                    .also { instance = it }
+//            }
+//        }
+//    }
 }
